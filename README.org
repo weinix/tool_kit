@@ -5,5 +5,9 @@
 
 #+begin_src bash
 curl https://raw.githubusercontent.com/weinix/tool_kit/main/monitoring/nodeexporter_installer.sh | sudo bash
-curl https://raw.githubusercontent.com/weinix/tool_kit/main/monitoring/install_nodeexporter.sh | sudo bash
+#+end_src
+** install nvidia gpu exporter
+#+begin_src bash
+curl https://raw.githubusercontent.com/weinix/tool_kit/main/monitoring/nvidia_gpu_exporter.sh | sudo bash
+
 #+end_src
