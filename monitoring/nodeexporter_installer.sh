@@ -3,6 +3,7 @@
 
 VERSION=$(curl --silent "https://api.github.com/repos/prometheus/node_exporter/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
 RELEASE=node_exporter-${VERSION}.linux-amd64
+bin_dir="${BIN_DIR:-/usr/local/bin}"
 
 _check_root () {
     if [ $(id -u) -ne 0 ]; then
@@ -35,11 +36,20 @@ cd /tmp
 arch="${ARCH:-linux-amd64}"
 bin_dir="${BIN_DIR:-/usr/local/bin}"
 
-download_url="https://github.com/prometheus/node_exporter/releases/download/v$VERSION/node_exporter-$VERSION.$arch.tar.gz"
-curl "https://github.com/prometheus/node_exporter/releases/download/v$VERSION/node_exporter-$VERSION.$arch.tar.gz" | tar xz
-mkdir -p /opt/node_exporter
-mv ${RELEASE}/node_exporter /opt/node_exporter/
-rm -rf /tmp/${RELEASE}
+latest_version=$(curl --silent "https://api.github.com/repos/prometheus/node_exporter/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
+wget "https://github.com/prometheus/node_exporter/releases/download/v$latest_version/node_exporter-$latest_version.$arch.tar.gz" \
+    -O /tmp/node_exporter.tar.gz
+
+mkdir -p /tmp/node_exporter
+
+cd /tmp || { echo "ERROR! No /tmp found.."; exit 1; }
+
+tar xfz /tmp/node_exporter.tar.gz -C /tmp/node_exporter || { echo "ERROR! Extracting the node_exporter tar"; exit 1; }
+
+cp "/tmp/node_exporter/node_exporter-$version.$arch/node_exporter" "$bin_dir"
+chown root:staff "$bin_dir/node_exporter"
+
+
 
 if [ -x "$(command -v systemctl)" ]; then
     cat << EOF > /lib/systemd/system/node-exporter.service
