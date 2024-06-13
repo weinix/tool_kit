@@ -1,0 +1,7 @@
+# Tool kit
+
+## Install node exporter
+
+#+begin_src bash
+curl https://raw.githubusercontent.com/weinix/tool_kit/main/monitoring/nodeexporter_installer.sh | sudo bash
+#+end_src
