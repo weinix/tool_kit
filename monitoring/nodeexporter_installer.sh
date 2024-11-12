@@ -54,7 +54,7 @@ tar xfz /tmp/node_exporter.tar.gz -C /tmp/node_exporter || {
 }
 
 cp "/tmp/node_exporter/node_exporter-$latest_version.$arch/node_exporter" "$bin_dir"
-chown root:staff "$bin_dir/node_exporter"
+#chown root:staff "$bin_dir/node_exporter"
 
 if [ -x "$(command -v systemctl)" ]; then
   cat <<EOF >/lib/systemd/system/node-exporter.service
