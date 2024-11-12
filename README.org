@@ -6,6 +6,10 @@
 #+begin_src bash
 curl https://raw.githubusercontent.com/weinix/tool_kit/main/monitoring/nodeexporter_installer.sh | sudo bash
 #+end_src
+** Prometheus target discover
+#+begin_src bash
+curl https://raw.githubusercontent.com/weinix/tool_kit/main/monitoring/prometheus_discover.sh | sudo bash
+#+end_src
 ** install nvidia gpu exporter
 #+begin_src bash
 curl https://raw.githubusercontent.com/weinix/tool_kit/main/monitoring/nvidia_gpu_exporter.sh | sudo bash
