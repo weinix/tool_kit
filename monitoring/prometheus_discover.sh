@@ -11,7 +11,7 @@ FINAL_CONFIG="/etc/prometheus/prometheus.yml"
 # Function to perform a reverse DNS lookup and trim domain part
 get_hostname() {
     local ip=$1
-    nslookup "$ip" | awk -F'= ' '/name =/ {print $2}' | cut -d'.' -f1
+    nslookup "$ip" | awk -F'= ' '/name =/ {print $2}'
 }
 
 # Start building the Prometheus configuration file
@@ -39,7 +39,7 @@ scrape_configs:
       module: [default]
     static_configs:
       - targets:
-  - proxmox:9221
+        - proxmox:9221
 
   - job_name: "prometheus"
     static_configs:
