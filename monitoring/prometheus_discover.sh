@@ -38,8 +38,8 @@ scrape_configs:
     params:
       module: [default]
     static_configs:
-      - targets: 
-	- proxmox:9221
+      - targets:
+  - proxmox:9221
 
   - job_name: "prometheus"
     static_configs:
@@ -48,6 +48,7 @@ scrape_configs:
 EOL
 
 # Scan the network for open port 9100
+set -x
 for ip in $(nmap -p "$PORT" --open -oG - "$SUBNET" | awk '/Up$/{print $2}'); do
     hostname=$(get_hostname "$ip")
     
